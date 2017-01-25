@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}List of products{% endblock %}
+
+{% block data_page %}products{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/">Home</a></li>
+<li class="active">Products</li>
+{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+<h1>Edit the list of products</h1>
+{% else %}
+<h1>The list of products</h1>
+{% endif %}
+
+{% if user.is_authenticated %}
+
+{% endif %}
+
+{% if products %}
+<table class="table-products table table-bordered table-hover" id="table-products">
+  <thead>
+	 <tr>
+		<th>id</th>
+		<th>Name</th>
+		<th>Count</th>
+		<th>Address</th>
+		<th>Delivery Date</th>
+		<th>Status</th>
+		 {% if user.is_authenticated %}
+		<th>Edit</th>
+		<th>Delete</th>
+		 {% endif %}
+	 </tr>
+  </thead>
+  <tbody>
+		{% for product in products %}
+		<tr{% if product.status == False %} class="warning"{% endif %}>
+			<td>{{ product.id }}</td>
+			<td>{{ product.name }}</td>
+			<td>{{ product.count }}</td>
+			<td>{{ product.address }}</td>
+			<td>{{ product.delivery_date }}</td>
+			<td>{% if product.status %}Enabled{% else %}Disabled{% endif %}</td>
+			{% if user.is_authenticated %}
+				<td><a href="/products/edit/{{product.id}}" class="btn btn-lg"/>Edit</td>
+				<td><a href="/products/remove/{{product.id}}" class="btn btn-lg"/>Delete</td>
+			{% endif %}
+		</tr>
+		{% endfor %}
+  </tbody>
+</table>
+{% if user.is_authenticated %}
+{% endif %}
+{% else %}
+	<p>List of products is empty</p>
+{% endif %}
+{% if user.is_authenticated %}
+<a class="btn btn-primary btn-lg" href="{% url 'add_product' %}">Add product</a>
+{% endif %}
+{% endblock %}
