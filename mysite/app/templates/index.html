@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %}Welcome!{% endblock %} {% block data_page %}index{% endblock %} {% block breadcrumbs %}
+<li class="active">Home</li>
+{% endblock %} {% block content %}
+<div class="jumbotron">
+    {% if user.is_authenticated %}
+    <h1>Welcome to ordering site, {{user.get_username}}!</h1>
+    {% else %}
+    <h1>Welcome to ordering site!</h1>
+    {% endif %}
+</div>
+<div>
+    <a class="btn btn-primary btn-lg" href="{% url 'products' %}">List of products</a>
+</div>
+{% endblock %}

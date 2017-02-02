@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block data_page %}Sign up{% endblock %}
+
+{% block breadcrumbs %}
+<li><a href="/">Home</a></li>
+<li class="active">Sign up</li>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form id="signUp" method="POST" action="{% url 'sign_up' %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="product_id" value="0">
+
+        <div class="form-group row">
+            <label for="inputName" class="col-sm-2 col-form-label">Login</label>
+            <div class="col-sm-10">
+                <input name="login" type="text" class="form-control " id="inputName" placeholder="Name" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input name="email" type="email" class="form-control " id="inputEmail" placeholder="email" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputPass" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+                <input name="password" type="password" class="form-control " id="inputPass" placeholder="password" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputPass2" class="col-sm-2 col-form-label">Password repeat</label>
+            <div class="col-sm-10">
+                <input name="password_repeat" type="password" class="form-control " id="inputPass2" placeholder="password repeat" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" id="submitButton">Sign up!</button>
+            </div>
+        </div>
+    </form>
+</div>
+<h1>
+    {{error}}
+</h1>
+
+{% endblock %}

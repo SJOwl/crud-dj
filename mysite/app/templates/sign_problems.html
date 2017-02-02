@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome!{% endblock %}
+{% block data_page %}sign problems{% endblock %}
+{% block breadcrumbs %}
+<li><a href="/">Home</a></li>
+{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <h1>{{error}}</h1>
+</div>
+<div>
+    <a class="btn btn-primary btn-lg" href="{% url 'products' %}">List of products</a>
+</div>
+{% endblock %}

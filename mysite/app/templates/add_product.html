@@ -1,0 +1,63 @@
+{% extends "base.html" %} {% load static from staticfiles %}{% block title %}Add product{% endblock %} {% block data_page %}add_product{% endblock %} {% block breadcrumbs %}
+<li><a href="/">Home</a></li>
+<li><a href="{% url 'products' %}">Products</a></li>
+<li class="active">Add product</li>
+{% endblock %} {% block content %}
+
+<h1>Add product</h1>
+
+<div class="container">
+    <form id="form-product" method="POST" action="{% url 'save_product' %}">
+        {% csrf_token %}
+
+        <input type="hidden" name="product_id" value="0">
+
+        <div class="form-group row">
+            <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input name="name" value="some product" type="text" class="form-control " id="inputName" placeholder="Name" required>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputCount" class="col-sm-2 col-form-label">Count</label>
+            <div class="col-sm-10">
+                <input name="count" value="5" type="number" class="form-control " id="inputCount" placeholder="Count" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputAddress" class="col-sm-2 col-form-label">Adress</label>
+            <div class="col-sm-10">
+                <input name="address" value="some address" type="text" class="form-control" id="inputAddress" placeholder="Address" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="inputDate" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-10">
+                <input name="deliv_date" value="{{product.delivery_date}}" type="datetime-local" class="form-control " id="inputDate" placeholder="Date" required>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2">Status</label>
+            <div class="col-sm-10">
+                <div class="form-check">
+                    <label class="form-check-label">
+            <input name="status" checked class="form-check-input" type="checkbox"> Enabled
+          </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="offset-sm-2 col-sm-10">
+                <button type="submit" class="btn btn-primary" id="submitButton">Done</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="{% static 'js/validate.js' %}"></script>
+
+
+{% endblock %}
