@@ -2,6 +2,8 @@ const product_name = document.querySelector('#inputName');
 const product_count = document.querySelector('#inputCount');
 const product_address = document.querySelector('#inputAddress');
 const product_date = document.querySelector('#inputDate');
+v = document.querySelector('#inputDate').value;
+
 
 const submit_button = document.querySelector('#submitButton');
 

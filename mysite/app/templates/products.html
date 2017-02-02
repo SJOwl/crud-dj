@@ -39,7 +39,7 @@
   </thead>
   <tbody>
 		{% for product in products %}
-		<tr{% if product.status == False %} class="warning"{% endif %}>
+		<tr {% if product.status == False %} class="warning"{% endif %}>
 			<td>{{ product.id }}</td>
 			<td>{{ product.name }}</td>
 			<td>{{ product.count }}</td>

@@ -6,7 +6,7 @@ class Product(models.Model):
     name = models.CharField(max_length=200)
     count = models.IntegerField(default=0)
     address = models.CharField(max_length=400)
-    delivery_date = models.DateTimeField(null=True)
+    delivery_date = models.CharField(max_length=20)
     status = models.BooleanField(default=False)
 
     def __str__(self):

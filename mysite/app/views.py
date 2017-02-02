@@ -1,11 +1,11 @@
 import re
-
-import datetime
+from datetime import datetime
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import Http404, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.timezone import now
 
 from app.models import Product
 
@@ -29,10 +29,16 @@ def products(request):
 
 
 def add_product(request):
+    if not request.user.is_authenticated():
+        return redirect(products)
+
     return render(request, 'add_product.html')
 
 
 def save_product(request):
+    if not request.user.is_authenticated():
+        return redirect(products)
+
     if 'product_id' in request.POST:
         product_id = int(request.POST['product_id'].strip())
     else:
@@ -61,10 +67,22 @@ def save_product(request):
     else:
         raise Http404()
 
-    if 'date' in request.POST:
-        return redirect(products)
+    if 'deliv_date' in request.POST:
+        try:
+            valid_date = datetime.strptime(request.POST['deliv_date'].strip(), "%Y-%m-%dT%H:%M")
+            if valid_date != None:
+                product.delivery_date = valid_date.strftime('%Y-%m-%d %H:%M')
+                print('==========================\n\n\ndate is correct: ')
+                print(product.delivery_date)
+                print('\n\n\n==========================')
+        except:
+            print('==========================\n\n\n')
+            print('no date')
+            print('==========================\n\n\n')
 
-    product.delivery_date = request.POST['date']
+    else:
+        return redirect(index)
+
     product.status = ('status' in request.POST)
 
     product.save()
@@ -72,15 +90,19 @@ def save_product(request):
 
 
 def edit_product(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    context = {}
+    if not request.user.is_authenticated():
+        return redirect(products)
 
-    context['product'] = product
+    product = get_object_or_404(Product, pk=product_id)
+    context = {'product': product}
 
     return render(request, 'edit_product.html', context)
 
 
 def remove_product(request, product_id):
+    if not request.user.is_authenticated():
+        return redirect(products)
+
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
 
